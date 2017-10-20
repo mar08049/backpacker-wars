@@ -3,7 +3,7 @@ class CountryController < ApplicationController
   get '/countries' do
     if logged_in? && current_user
       @traveler = current_user
-      session[:user_id] = @traveler.id
+      session[:traveler_id] = @traveler.id
       @countries = Country.all
       erb :'/countries/index'
     else
@@ -15,7 +15,7 @@ class CountryController < ApplicationController
     @country = Country.find_by(id: params[:id])
     if logged_in? && current_user
       @traveler = current_user
-      session[:user_id] = @traveler.id
+      session[:traveler_id] = @traveler.id
       erb :'countries/new'
     else
       redirect '/'
@@ -24,8 +24,8 @@ class CountryController < ApplicationController
 
   post '/countries' do
     @country = current_user
-    if logged_in? && !params[:content].empty?
-    @country = Country.create(content: params[:content])
+    if logged_in? && !params[:name].empty?
+    @country = Country.create(name: params[:name])
     @traveler.countries << @countries
       redirect '/countries'
     else
@@ -54,9 +54,9 @@ class CountryController < ApplicationController
 
   patch '/countries/:id' do
     @country = Country.find_by_id(params[:id])
-    if logged_in? && @country.user == current_user && !params[:content].empty?
+    if logged_in? && @country.user == current_user && !params[:name].empty?
       @traveler = current_user
-      @country.update(content: params[:content])
+      @country.update(name: params[:name])
       @country.save
       redirect "/countries/#{@country.id}"
     else

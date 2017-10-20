@@ -13,10 +13,15 @@ class ApplicationController < Sinatra::Base
     erb :welcome
   end
 
+  delete 'countries/:id/delete' do
+    @country = Country.find_by(id: params[:id])
+    @country.delete
+    redirect to '/countries'
+  end
 
   helpers do
     def current_user
-       User.find_by_id(session[:user_id])
+       Traveler.find_by_id(session[:user_id])
     end
 
     def logged_in?

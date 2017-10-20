@@ -11,11 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171020032642) do
+ActiveRecord::Schema.define(version: 20171020180834) do
 
   create_table "countries", force: :cascade do |t|
     t.string  "name"
-    t.integer "user_id"
+    t.integer "traveler_id"
   end
 
   create_table "travelers", force: :cascade do |t|
