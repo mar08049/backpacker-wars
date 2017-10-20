@@ -13,7 +13,7 @@ class CountryController < ApplicationController
   get '/countries/new' do
     @country = Country.find_by(id: params[:id])
     if logged_in?
-      @country = current_user
+      @traveler = current_user
       erb :'countries/new'
     else
       redirect '/login'
@@ -24,7 +24,7 @@ class CountryController < ApplicationController
     @country = current_user
     if logged_in? && !params[:content].empty?
     @country = Country.create(content: params[:content])
-    @country.countries << @countries
+    @traveler.countries << @countries
       redirect '/countries'
     else
       redirect '/countries/new'
