@@ -4,7 +4,7 @@ class ApplicationController < Sinatra::Base
 
   configure do
     enable :sessions
-    set :session_secret, 'fwitter_secret'
+    set :session_secret, 'backpackers'
     set :public_folder, 'public'
     set :views, 'app/views'
   end
@@ -13,9 +13,10 @@ class ApplicationController < Sinatra::Base
     erb :welcome
   end
 
+
   helpers do
     def current_user
-      Traveler.find_by_id(session[:user_id])
+       User.find_by_id(session[:user_id])
     end
 
     def logged_in?

@@ -1,22 +1,24 @@
 class CountryController < ApplicationController
 
   get '/countries' do
-    if logged_in?
+    if logged_in? && current_user
       @traveler = current_user
+      session[:user_id] = @traveler.id
       @countries = Country.all
-      erb :'countries/index'
+      erb :'/countries/index'
     else
-      redirect '/login'
+      redirect '/'
     end
   end
 
   get '/countries/new' do
     @country = Country.find_by(id: params[:id])
-    if logged_in?
+    if logged_in? && current_user
       @traveler = current_user
+      session[:user_id] = @traveler.id
       erb :'countries/new'
     else
-      redirect '/login'
+      redirect '/'
     end
   end
 
@@ -37,7 +39,7 @@ class CountryController < ApplicationController
       @traveler = current_user
       erb :'countries/show'
     else
-      redirect '/login'
+      redirect '/'
     end
   end
 
@@ -46,7 +48,7 @@ class CountryController < ApplicationController
     if logged_in? && @Country.traveler == current_user
       erb :'countries/edit'
     else
-      redirect '/login'
+      redirect '/'
     end
   end
 
