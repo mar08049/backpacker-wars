@@ -1,0 +1,10 @@
+<h1>Welcome, <%= @traveler.username.capitalize %></h1>
+  <br>
+  <h3>Countries:</h3>
+  <% @countries.each do |t| %>
+  <%= t.country %><br>
+  <br>
+  <% end %>
+  <br>
+  <br>
+  <a href="/logout" value="submit">Logout</a>

@@ -37,7 +37,7 @@ class TravelerController < ApplicationController
   end
 
   get '/travelers/:slug' do
-    @user = User.find_by_slug(params[:slug])
+    @traveler = Traveler.find_by_slug(params[:slug])
     erb :'/travelers/show'
   end
 

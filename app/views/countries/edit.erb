@@ -1,0 +1,13 @@
+<h1>Edit</h1>
+<p>Country: <%= @country.name %>
+  <br>
+  <form action="/countries/<%= @country.id %>" method="post">
+  <input id="hidden" type="hidden" name="_method" value="patch">
+  <input type="text" name="content" id="content"><br>
+  <br>
+  <input type="submit" id="submit" value="Edit Country">
+  </form>
+  <br>
+  <form action="/countries/<%= @country.id %>/delete" method="post">
+  <input id="hidden" type="hidden" name="_method" value="delete">
+  <input type="submit" value="delete">
