@@ -36,11 +36,6 @@ class TravelerController < ApplicationController
     end
   end
 
-  get '/travelers/:slug' do
-    @traveler = Traveler.find_by_slug(params[:slug])
-    erb :'/travelers/show'
-  end
-
   get '/logout' do
     if logged_in?
     session.clear
