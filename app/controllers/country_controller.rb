@@ -43,7 +43,7 @@ class CountryController < ApplicationController
 
   get '/countries/:id/edit' do
     @countries = Country.find_by(id: params[:id])
-    if logged_in? && @Country.user == current_user
+    if logged_in? && @Country.traveler == current_user
       erb :'countries/edit'
     else
       redirect '/login'
@@ -65,7 +65,7 @@ class CountryController < ApplicationController
   delete '/countries/:id/delete' do
     @country = Country.find_by_id(params[:id])
     @traveler = current_user
-    if logged_in? && @traveler.user == current_user
+    if logged_in? && @traveler.traveler == current_user
       @country.delete
       redirect '/countries'
     else
