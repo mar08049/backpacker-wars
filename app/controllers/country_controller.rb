@@ -2,12 +2,12 @@ class CountryController < ApplicationController
 
   get '/countries' do
     if logged_in? && current_user
-      @traveler = current_user
+      @traveler = current_user#if the current user is logged in show user's countries list.
       session[:traveler_id] = @traveler.id
       @countries = Country.all
       erb :'/countries/index'
     else
-      redirect '/'
+      redirect '/'#if the current user is not logged in, redirect to root.
     end
   end
 
@@ -16,7 +16,7 @@ class CountryController < ApplicationController
     if logged_in? && current_user
       @traveler = current_user
       session[:traveler_id] = @traveler.id
-      erb :'countries/new'
+      erb :'countries/new'#page to add new countries to list, if current user is logged in.
     else
       redirect '/'
     end
@@ -26,17 +26,17 @@ class CountryController < ApplicationController
     @country = current_user
     if logged_in? && !params[:name].empty?
     @country = Country.create(name: params[:name])
-    @traveler.countries << @countries
-      redirect '/countries'
+    @traveler.countries << @country
+      redirect '/countries'#inserts new country into traveler country list and returns to index.
     else
       redirect '/countries/new'
     end
   end
 
   get '/countries/:id' do
-    @country = Country.find_by(id: params[:id])
     if logged_in?
       @traveler = current_user
+      @country = Country.find_by(id: params[:id])
       erb :'countries/show'
     else
       redirect '/'
@@ -44,8 +44,8 @@ class CountryController < ApplicationController
   end
 
   get '/countries/:id/edit' do
+    if logged_in?
     @countries = Country.find_by(id: params[:id])
-    if logged_in? && @Country.traveler == current_user
       erb :'countries/edit'
     else
       redirect '/'
@@ -53,9 +53,8 @@ class CountryController < ApplicationController
   end
 
   patch '/countries/:id' do
-    @country = Country.find_by_id(params[:id])
-    if logged_in? && @country.user == current_user && !params[:name].empty?
-      @traveler = current_user
+    if logged_in? && !params[:name].empty?
+      @country = Country.find_by_id(params[:id])
       @country.update(name: params[:name])
       @country.save
       redirect "/countries/#{@country.id}"
@@ -67,7 +66,7 @@ class CountryController < ApplicationController
   delete '/countries/:id/delete' do
     @country = Country.find_by_id(params[:id])
     @traveler = current_user
-    if logged_in? && @traveler.traveler == current_user
+    if logged_in?
       @country.delete
       redirect '/countries'
     else
