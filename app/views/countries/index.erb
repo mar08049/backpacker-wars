@@ -1,9 +1,8 @@
 <h1>Welcome, <%= @traveler.username.capitalize %></h1>
   <br>
   <h3>Countries:</h3>
-  <% @countries.each do |t| %>
-  <%= t.name %><br>
-  <br>
+  <% @traveler.countries.each_with_index do |c| %>
+  <%= c.name %>
   <% end %>
   <br>
   <br>

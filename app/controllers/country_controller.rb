@@ -13,6 +13,7 @@ class CountryController < ApplicationController
 
   get '/countries/new' do
     @country = Country.find_by(id: params[:id])
+    @countires = Country.all
     if logged_in? && current_user
       @traveler = current_user
       session[:traveler_id] = @traveler.id
@@ -23,11 +24,11 @@ class CountryController < ApplicationController
   end
 
   post '/countries' do
-    @country = current_user
-    if logged_in? && !params[:name].empty?
+    @traveler = current_user
+    if logged_in?
     @country = Country.create(name: params[:name])
     @traveler.countries << @country
-      redirect '/countries'#inserts new country into traveler country list and returns to index.
+      redirect '/countries'#inserts new country into traveler's country list and returns to index.
     else
       redirect '/countries/new'
     end

@@ -1,11 +1,13 @@
+ <center><h1>Hello, <%= @traveler.username.capitalize%> !!!</h1>
+ <br>
+ <h3>You have visited<% @traveler.countries.length %> countries!</h3>
+<img src="https://mythailandtours.com/wp-content/uploads/2016/06/James-Bond-Island-tour.jpg" style="width:650px;height:400px;">
 <% @traveler.countries.each_with_index do |c| %>
 <%= c.name %>
 <% end %>
 <br>
-<a href="/countries/new">Do you have more countries to add?</a>
+<p>Do you have more countries to<a href="/countries/new"> ADD?</a>
 <br>
+<p>Would you like to <a href="/countries/:id/edit">EDIT YOUR LIST?</a></p>
 <br>
-<a href="/countries/:id/edit">Edit list?</a>
-<br>
-<br>
-<a href="/logout">Logout</a>
+<p>Or would you like to <a href="/logout">LOGOUT?</a></p>
