@@ -1,9 +1,12 @@
 <h1>Welcome, <%= @traveler.username.capitalize %></h1>
   <br>
   <h3>Countries:</h3>
-  <% @traveler.countries.each_with_index do |c| %>
-  <%= c.name %>
+  <ul>
+  <% @traveler.countries.each_with_index do |place| %>
+  <li><%= place.name %></li>
   <% end %>
+  </ul>
   <br>
   <br>
+  Go back to your <a href="/travelers/show" value="submit">Profile Page</a><br>
   <a href="/logout" value="submit">Logout</a>

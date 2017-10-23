@@ -13,7 +13,7 @@ class CountryController < ApplicationController
 
   get '/countries/new' do
     @country = Country.find_by(id: params[:id])
-    @countires = Country.all
+    @countries = Country.all
     if logged_in? && current_user
       @traveler = current_user
       session[:traveler_id] = @traveler.id
@@ -24,10 +24,11 @@ class CountryController < ApplicationController
   end
 
   post '/countries' do
-    @traveler = current_user
     if logged_in?
-    @country = Country.create(name: params[:name])
-    @traveler.countries << @country
+      @countries = Country.all
+      @traveler = current_user
+      @country = Country.create(name: params[:name])
+      @traveler.countries << @country
       redirect '/countries'#inserts new country into traveler's country list and returns to index.
     else
       redirect '/countries/new'
@@ -53,7 +54,7 @@ class CountryController < ApplicationController
     end
   end
 
-  patch '/countries/:id' do
+  post '/countries/:id' do
     if logged_in? && !params[:name].empty?
       @country = Country.find_by_id(params[:id])
       @country.update(name: params[:name])

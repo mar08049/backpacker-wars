@@ -2,9 +2,11 @@
  <br>
  <h3>You have visited<% @traveler.countries.length %> countries!</h3>
 <img src="https://mythailandtours.com/wp-content/uploads/2016/06/James-Bond-Island-tour.jpg" style="width:650px;height:400px;">
+<ul>
 <% @traveler.countries.each_with_index do |c| %>
-<%= c.name %>
+<li><%= c.name %></li>
 <% end %>
+</ul>
 <br>
 <p>Do you have more countries to<a href="/countries/new"> ADD?</a>
 <br>
