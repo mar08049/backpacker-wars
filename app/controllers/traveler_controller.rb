@@ -5,7 +5,7 @@ class TravelerController < ApplicationController
     erb :'/travelers/signup'
     else
       @traveler = current_user#if user is logged on, redirect to show page or user profile page.
-      session[:traveler_id] = @traveler.id
+      session[:user_id] = @traveler.id
       redirect "/travelers/#{@traveler.slug}"
     end
   end
@@ -13,7 +13,7 @@ class TravelerController < ApplicationController
   post '/signup' do
     if params["username"] != "" && params[:email] != "" && params[:password] != ""
     @traveler = Traveler.create(username: params[:username], email: params[:email], password: params[:password])
-    session[:traveler_id] = @traveler.id#if params are filled in correctly, redirect to user profile page.(show)
+    session[:user_id] = @traveler.id#if params are filled in correctly, redirect to user profile page.(show)
     redirect "/travelers/#{@traveler.slug}"
     else
       erb :'/travelers/sign_up'#if not, stay at sign_up page.
@@ -25,7 +25,7 @@ class TravelerController < ApplicationController
     erb :'/travelers/login'
     else
       @traveler = current_user#if logged in, redirect to user profile page(show).
-      session[:traveler_id] = @traveler.id
+      session[:user_id] = @traveler.id
       redirect "/travelers/#{@traveler.slug}"
     end
   end
@@ -33,7 +33,7 @@ class TravelerController < ApplicationController
   post '/login' do
       @traveler = Traveler.find_by(username: params[:username])
       if @traveler && @traveler.authenticate(params[:password])
-        session[:traveler_id] = @traveler.id#if user is user and is authenticated via password, go to user profile(show).
+        session[:user_id] = @traveler.id#if user is user and is authenticated via password, go to user profile(show).
         redirect "/travelers/#{@traveler.slug}"
       else
         redirect '/failure'#if not, go to failure page, with option to return to login.

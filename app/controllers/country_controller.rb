@@ -3,7 +3,7 @@ class CountryController < ApplicationController
   get '/countries' do
     if logged_in? && current_user
       @traveler = current_user#if the current user is logged in show user's countries list.
-      session[:traveler_id] = @traveler.id
+      session[:user_id] = @traveler.id
       @countries = Country.all
       erb :'/countries/index'
     else
@@ -16,7 +16,7 @@ class CountryController < ApplicationController
     @countries = Country.all
     if logged_in? && current_user
       @traveler = current_user
-      session[:traveler_id] = @traveler.id
+      session[:user_id] = @traveler.id
       erb :'countries/new'#page to add new countries to list, if current user is logged in.
     else
       redirect '/'
